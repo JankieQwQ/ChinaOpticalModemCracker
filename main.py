@@ -18,6 +18,8 @@ import sys
 import time
 import uuid
 import socket
+import logging
+import telnetlib
 import webbrowser
 import urllib.request
 
