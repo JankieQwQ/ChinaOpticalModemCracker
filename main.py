@@ -22,22 +22,53 @@ import telnetlib
 import webbrowser
 import urllib.request
 
-default = '''
-|       ISP        |   Username   |  Password   |
-China Telecom Anhui  telecomadmin    nE7jA%5m
-China Mobile         CMCCAdmin       aDm8H%MdA
-China United Network CUAdmin         CUAdmin
-'''
-
 welc = '''
-China Optical Modem Cracker - 
+China Optical Modem Cracker  
 
-0. Get default admin username and password
-1. Open TELNET (Only China Mobile)
-2. Crack Optical Modem
-3. Telnet Client
-4. Exit
+    0. Get default admin username and password
+    1. Open TELNET (Only China Mobile)
+    2. Crack Optical Modem
+    3. Telnet Client
+    4. Exit
 '''
+
+class cracker:
+    def __init__(self, catIP: str='192.168.1.1'):
+        self.ip = catIP
+
+    def default(self):
+        print('|       ISP        |   Username   |  Password   |')
+        print('China Telecom Anhui  telecomadmin    nE7jA%5m')
+        print('China Mobile         CMCCAdmin       aDm8H%MdA')
+        print('China United Network CUAdmin         CUAdmin')
+
+    def TCPing(ip:str,port:int=3000):
+        code = True
+        startTime = time.time()
+        tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_addr = (ip,port)
+        try:
+            tcp_socket.connect(server_addr)
+            for i in range(4):
+                data = str(uuid.uuid(4))
+                tcp_socket.send(data)
+        except:
+            code = False
+        finally:
+            endTime = time.time()
+            times = endTime - startTime
+            tcp_socket.close()
+            return (code,times)
+
+    def download(url:str,filename:str):
+        code = True
+        try:
+            with open(filename,'w') as f:
+                f.write(urllib.request.urlopen(url).read())
+        except:
+            code = False
+        finally:
+            return code
 
 class TelnetClient:
     def __init__(self):
@@ -85,45 +116,11 @@ class TelnetClient:
 
     def logout_host(self):
         self.tn.write(b"exit\n")
-class cracker:
-    def __init__(self,catIP:str='192.168.1.1'):
-        self.ip = catIP
-    
-    def default():
-        print(default)
-    
-    def TCPing(ip:str,port:int=3000):
-        code = True
-        startTime = time.time()
-        tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_addr = (ip,port)
-        try:
-            tcp_socket.connect(server_addr)
-            for i in range(4):
-                data = str(uuid.uuid(4))
-                tcp_socket.send(data)
-        except:
-            code = False
-        finally:
-            endTime = time.time()
-            times = endTime - startTime
-            tcp_socket.close()
-            return (code,times)
-    
-    def download(url:str,filename:str):
-        code = True
-        try:
-            with open(filename,'w') as f:
-                f.write(urllib.request.urlopen(url).read())
-        except:
-            code = False
-        finally:
-            return code
 
 def main() -> int:
-    print(welc)
+    print('China Optical Modem Cracker - ')
     ip = input('Please enter your Optical Modem\'s IP:')
-    caseu = input('Please enter your options:')
+    caseu = int(input('Please enter your options:'))
     crack = cracker(ip)
     if caseu == 0:
         crack.default()
