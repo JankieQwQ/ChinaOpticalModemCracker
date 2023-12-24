@@ -39,6 +39,34 @@ China Optical Modem Cracker -
 3. Exit
 '''
 
+class TelnetClient:
+    def __init__(self):
+        self.tn = telnetlib.Telnet()
+
+    def login_host(self, host_ip, username, password):
+        self.tn.open(host_ip, port=23)
+        self.tn.read_until(b'login: ', timeout=10)
+        self.tn.write(username.encode('ascii') + b'\n')
+        
+        self.tn.read_until(b'Password: ', timeout=10)
+        self.tn.write(password.encode('ascii') + b'\n')
+        
+        time.sleep(2)
+        command_result = self.tn.read_very_eager().decode('ascii')
+        
+        if 'Login incorrect' not in command_result:
+            return True
+        else:
+            logging.warning(f'Error username or password:{host_ip}')
+            return False
+
+    def execute_some_command(self, command):
+        self.tn.write(command.encode('ascii')+b'\n')
+        time.sleep(2)
+        command_result = self.tn.read_very_eager().decode('ascii')
+
+    def logout_host(self):
+        self.tn.write(b"exit\n")
 class cracker:
     def __init__(self,catIP:str='192.168.1.1'):
         self.ip = catIP
