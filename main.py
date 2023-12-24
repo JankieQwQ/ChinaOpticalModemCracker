@@ -132,7 +132,6 @@ def main() -> int:
         host_ip = '192.168.220.129'
         username = 'root'
         password = 'abcd1234'
-        command = 'whoami'
         telnet_client = TelnetClient()
         if telnet_client.login_host(host_ip, username, password):
             telnet_client.execute_some_command(command)
