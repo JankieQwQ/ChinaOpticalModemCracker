@@ -37,7 +37,7 @@ China Optical Modem Cracker -
 1. Open TELNET (Only China Mobile)
 2. Crack Optical Modem
 3. Telnet Client
-3. Exit
+4. Exit
 '''
 
 class TelnetClient:
@@ -140,5 +140,8 @@ def main() -> int:
         telnet_client = TelnetClient()
         if telnet_client.login_host(host_ip, username, password):
             telnet_client.execute_some_command(command)
+            telnet_client.start_terminal()
             telnet_client.logout_host()
+    elif caseu == 4:
+        return 0
     return 0
