@@ -143,4 +143,4 @@ def main() -> int:
 
 if __name__ == '__main__':
     code = main()
-    raise SystemExit(code)
+    exit(code)
