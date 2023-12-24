@@ -15,6 +15,7 @@ limitations under the License.
 '''
 
 import sys
+import time
 import uuid
 import socket
 import urllib.request
@@ -27,10 +28,26 @@ China United Network CUAdmin         CUAdmin
 '''
 
 class cracker:
-    def __init__(self,catIP='192.168.1.1'):
+    def __init__(self,catIP:str='192.168.1.1'):
         self.ip = catIP
     
     def default():
         print(default)
     
+    def TCPing(ip:str,port:int=3000):
+        code = True
+        startTime = time.time()
+        tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_addr = (ip,port)
+        try:
+            tcp_socket.connect(server_addr)
+            for i in range(4):
+                data = str(uuid.uuid(4))
+                tcp_socket.send(data)
+        except:
+            code = False
+        endTime = time.time()
+        times = endTime - startTime
+        tcp_socket.close()
+        return (code,times)
     
