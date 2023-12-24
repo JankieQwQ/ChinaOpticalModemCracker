@@ -18,6 +18,7 @@ import sys
 import time
 import uuid
 import socket
+import webbrowser
 import urllib.request
 
 default = '''
@@ -25,6 +26,15 @@ default = '''
 China Telecom Anhui  telecomadmin    nE7jA%5m
 China Mobile         CMCCAdmin       aDm8H%MdA
 China United Network CUAdmin         CUAdmin
+'''
+
+welc = '''
+China Optical Modem Cracker - 
+
+0. Get default admin username and password
+1. Open TELNET (Only China Mobile)
+2. Crack
+3. Exit
 '''
 
 class cracker:
@@ -61,3 +71,14 @@ class cracker:
             code = False
         finally:
             return code
+
+def main() -> int:
+    print(welc)
+    ip = input('Please enter your Optical Modem\'s IP:')
+    caseu = input('Please enter your options:')
+    crack = cracker(ip)
+    if caseu == 0:
+        crack.default()
+    elif caseu == 1:
+        webbrowser.open_new_tab('http://{}/telnet-config.asp'.format(ip))
+    return 0
