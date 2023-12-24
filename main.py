@@ -46,8 +46,18 @@ class cracker:
                 tcp_socket.send(data)
         except:
             code = False
-        endTime = time.time()
-        times = endTime - startTime
-        tcp_socket.close()
-        return (code,times)
+        finally:
+            endTime = time.time()
+            times = endTime - startTime
+            tcp_socket.close()
+            return (code,times)
     
+    def download(url:str,filename:str):
+        code = True
+        try:
+            with open(filename,'w') as f:
+                f.write(urllib.request.urlopen(url).read())
+        except:
+            code = False
+        finally:
+            return code
