@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-import sys
 import time
 import uuid
 import socket
@@ -131,7 +130,7 @@ def main() -> int:
     elif caseu == 1:
         webbrowser.open_new_tab('http://{}/telnet-config.asp'.format(ip))
     elif caseu == 2:
-        pass
+        print('Please use the tool with a Telnet connection your Optical Modem and input "cat /flash/cfg/agentconf/factory.conf"')
     elif caseu == 3:
         host_ip = '192.168.220.129'
         username = 'root'
@@ -145,3 +144,7 @@ def main() -> int:
     elif caseu == 4:
         return 0
     return 0
+
+if __name__ == '__main__':
+    code = main()
+    raise SystemExit(code)
